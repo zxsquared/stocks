@@ -1,2 +1,1 @@
-"# stocks" 
-"# stocks" 
+# Stock Ticker

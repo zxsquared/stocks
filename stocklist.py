@@ -1,4 +1,3 @@
-# from pandas._libs.tslibs.timestamps import Tick
 import yfinance as yf
 import pandas as pd
 import csv
@@ -32,15 +31,15 @@ for i in load:
     print(i)
 
 
-keys_to_rm = list(shared._ERRORS.keys())
-keys_to_rm.append('0')
+# keys_to_rm = list(shared._ERRORS.keys())
+# keys_to_rm.append('0')
 
 
-def gen_stock():
-    a = 0
-    while a < len(keys_to_rm)-1:
-        list_from_csv.remove(keys_to_rm[a])
-        a+=1
+# def gen_stock():
+    # a = 0
+    # while a < len(keys_to_rm)-1:
+        # list_from_csv.remove(keys_to_rm[a])
+        # a+=1
 
 df = pd.DataFrame(data=list_from_csv)
 

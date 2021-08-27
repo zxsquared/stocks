@@ -1,30 +1,8 @@
-"""
-Copyright (c) 2021 Magnus Peterson-Munoz
-
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-"""
-
 import yfinance as yf
-import csv
 import pandas as pd
+import csv
 from yfinance import shared
+
 
 file = open("tickers.csv", "r")
 csv_reader = csv.reader(file)
@@ -36,14 +14,34 @@ def gen_csv():
 
 
 
-keys_to_rm = []
+
 load = gen_csv()
+list_from_csv = []
 for i in load:
-    tick = yf.Ticker(i)
-    ticker_df = tick.history()
-    if ticker_df.empty:
-        keys_to_rm = list(shared._ERRORS.keys())
+    list_from_csv.append(i) 
+    tick = yf.Tickers(i)
+    a= tick.tickers.keys()
+    try:
+        ticker_df = tick.history(period='1d')
+        print(f"{tick.tickers.keys()} does has downloaded")
+    except:
+        print(f"{tick.tickers.keys()} does not exist")
+        list_from_csv.remove(list(a)[0])
+        continue
+    print(i)
 
-df = pd.DataFrame(data=keys_to_rm)
 
-df.to_csv('JSONstocks/keys_to_rm.csv', index=False, header=False)
+# keys_to_rm = list(shared._ERRORS.keys())
+# keys_to_rm.append('0')
+
+
+# def gen_stock():
+    # a = 0
+    # while a < len(keys_to_rm)-1:
+        # list_from_csv.remove(keys_to_rm[a])
+        # a+=1
+
+df = pd.DataFrame(data=list_from_csv)
+
+
+df.to_csv('existingtickers.csv', index=False)

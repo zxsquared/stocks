@@ -26,7 +26,7 @@ for i in load:
         print(f"{tick.tickers.keys()} does has downloaded")
     except:
         print(f"{tick.tickers.keys()} does not exist")
-        list_from_csv.pop(-1)
+        list_from_csv.remove(list(a)[0])
         continue
     print(i)
 

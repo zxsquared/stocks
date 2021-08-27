@@ -45,7 +45,7 @@ for i in load:
     try:
         if ticker_df.empty:
             keys_to_rm = list(shared._ERRORS.keys())
-    except JSONDecodeError:
+    except:
         continue
 
 

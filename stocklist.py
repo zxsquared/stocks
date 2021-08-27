@@ -21,6 +21,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 
+from json.decoder import JSONDecodeError
 import yfinance as yf
 import csv
 import pandas as pd
@@ -41,8 +42,12 @@ load = gen_csv()
 for i in load:
     tick = yf.Ticker(i)
     ticker_df = tick.history()
-    if ticker_df.empty:
-        keys_to_rm = list(shared._ERRORS.keys())
+    try:
+        if ticker_df.empty:
+            keys_to_rm = list(shared._ERRORS.keys())
+    except JSONDecodeError:
+        continue
+
 
 df = pd.DataFrame(data=keys_to_rm)
 

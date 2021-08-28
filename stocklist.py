@@ -13,35 +13,27 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-
-from json.decoder import JSONDecodeError
 import yfinance as yf
 import csv
 import pandas as pd
-from yfinance import shared
-
-file = open("tickers.csv", "r")
+file = open("LetterTickers/B.csv", "r")
+json_name = file.name[14]
 csv_reader = csv.reader(file)
-
 def gen_csv():
     for row in csv_reader:
         yield ''.join(row)
-
-
-
-
-keys_to_rm = []
+keys_to_add = []
 load = gen_csv()
 for i in load:
     tick = yf.Ticker(i)
-    ticker_df = tick.history()
+    ticker_df = tick.history('1d', '1d')
     try:
-        if ticker_df.empty:
-            keys_to_rm = list(shared._ERRORS.keys())
+        if ticker_df.empty == False:
+            keys_to_add.append(i)
+            
     except:
         continue
-
-
-df = pd.DataFrame(data=keys_to_rm)
-
-df.to_csv('JSONstocks/keys_to_rm.csv', index=False, header=False)
+print(keys_to_add)
+for i in keys_to_add:
+    df = pd.DataFrame(data=i)
+    df.to_csv(f'JSONstocks/{json_name}.csv', index=False, header=False)

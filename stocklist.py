@@ -16,7 +16,7 @@ limitations under the License.
 import yfinance as yf
 import csv
 import pandas as pd
-file = open("LetterTickers/B.csv", "r")
+file = open("LetterTickers/C.csv", "r")
 json_name = file.name[14]
 csv_reader = csv.reader(file)
 def gen_csv():
@@ -34,6 +34,5 @@ for i in load:
     except:
         continue
 print(keys_to_add)
-for i in keys_to_add:
-    df = pd.DataFrame(data=i)
-    df.to_csv(f'JSONstocks/{json_name}.csv', index=False, header=False)
+df = pd.DataFrame(data=keys_to_add)
+df.to_csv(f'JSONstocks/{json_name}.csv', index=False, header=False)

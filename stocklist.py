@@ -33,6 +33,6 @@ for i in load:
             
     except:
         continue
-print(keys_to_add)
 df = pd.DataFrame(data=keys_to_add)
+print(keys_to_add)
 df.to_csv(f'JSONstocks/{json_name}.csv', index=False, header=False)

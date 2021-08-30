@@ -16,7 +16,7 @@ limitations under the License.
 import yfinance as yf
 import csv
 import pandas as pd
-file = open("LetterTickers/C.csv", "r")
+file = open("LetterTickers/D.csv", "r")
 json_name = file.name[14]
 csv_reader = csv.reader(file)
 def gen_csv():
@@ -26,13 +26,13 @@ keys_to_add = []
 load = gen_csv()
 for i in load:
     tick = yf.Ticker(i)
-    ticker_df = tick.history('1d', '1d')
+    ticker_df = tick.history()
     try:
         if ticker_df.empty == False:
-            keys_to_add.append(i)
-            
+            keys_to_add.append(i)    
+            print(keys_to_add)
     except:
         continue
-df = pd.DataFrame(data=keys_to_add)
-print(keys_to_add)
-df.to_csv(f'JSONstocks/{json_name}.csv', index=False, header=False)
+for a in keys_to_add:
+    df = pd.DataFrame(data=a)
+    df.to_csv(f'JSONstocks/{json_name}.csv', index=False, header=False)

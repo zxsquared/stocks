@@ -16,8 +16,20 @@ limitations under the License.
 import yfinance as yf
 import csv
 import pandas as pd
-file = open("LetterTickers/F.csv", "r")
-json_name = file.name[14]
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--l", type=str, action="store", help="The the letter for which CSV you use", default=None)
+
+csv_letter = ""
+args = parser.parse_args()
+if args.l:
+    csv_letter = args.l
+
+print(csv_letter)
+
+
+file = open(f"LetterTickers/{csv_letter}.csv", "r")
 csv_reader = csv.reader(file)
 def gen_csv():
     for row in csv_reader:
@@ -34,4 +46,4 @@ for i in load:
         continue
 print(keys_to_add)
 df = pd.DataFrame(data=keys_to_add)
-df.to_csv(f'JSONstocks/{json_name}.csv', index=False, header=False)
+df.to_csv(f'JSONstocks/{csv_letter}.csv', index=False, header=False)

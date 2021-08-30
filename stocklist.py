@@ -29,7 +29,7 @@ if args.l:
 print(csv_letter)
 
 
-file = open(f"LetterTickers/{csv_letter}.csv", "r")
+file = open(f"LetterTickers/{csv_letter.upper()}.csv", "r")
 csv_reader = csv.reader(file)
 def gen_csv():
     for row in csv_reader:
@@ -46,4 +46,4 @@ for i in load:
         continue
 print(keys_to_add)
 df = pd.DataFrame(data=keys_to_add)
-df.to_csv(f'JSONstocks/{csv_letter}.csv', index=False, header=False)
+df.to_csv(f'JSONstocks/{csv_letter.upper()}.csv', index=False, header=False)

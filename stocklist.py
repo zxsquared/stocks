@@ -24,12 +24,12 @@ parser.add_argument("--l", type=str, action="store", help="The the letter for wh
 csv_letter = ""
 args = parser.parse_args()
 if args.l:
-    csv_letter = args.l
+    csv_letter = args.l.upper()
 
 print(csv_letter)
 
 
-file = open(f"LetterTickers/{csv_letter.upper()}.csv", "r")
+file = open(f"LetterTickers/{csv_letter}.csv", "r")
 csv_reader = csv.reader(file)
 def gen_csv():
     for row in csv_reader:
@@ -44,6 +44,7 @@ for i in load:
             keys_to_add.append(i)    
     except:
         continue
-print(keys_to_add)
+    finally:
+        print(keys_to_add)
 df = pd.DataFrame(data=keys_to_add)
-df.to_csv(f'JSONstocks/{csv_letter.upper()}.csv', index=False, header=False)
+df.to_csv(f'JSONstocks/{csv_letter}.csv', index=False, header=False)
